@@ -32,18 +32,18 @@ function VoiceOverSoundQueue:addSoundToQueue(soundData)
         self.soundIdCounter = self.soundIdCounter + 1
         soundData.id = self.soundIdCounter
 
-        VoiceOverUtils:addGossipFilePathToSoundData(soundData)
-        if not VoiceOverUtils:willSoundPlay(soundData) then
+        local playableSound = VoiceOver:CreatePlayableSound(soundData)
+        if playableSound == nil then
             print("Sound does not exist for: ", soundData.title)
             return
         end
 
-        table.insert(self.sounds, soundData)
+        table.insert(self.sounds, playableSound)
         self.ui:updateSoundQueueDisplay()
 
         -- If the sound queue only contains one sound, play it immediately
         if #self.sounds == 1 then
-            self:playSound(soundData)
+            self:playSound(playableSound)
         end
     end)
 end

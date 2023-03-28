@@ -67,3 +67,9 @@ end
 function VoiceOverUtils:getQuestLogTitleFrame(index)
     return _G["QuestLogTitle" .. index]
 end
+
+function VoiceOverUtils:copyTable(t)
+    local u = {}
+    for k, v in pairs(t) do u[k] = v end
+    return setmetatable(u, getmetatable(t))
+end
